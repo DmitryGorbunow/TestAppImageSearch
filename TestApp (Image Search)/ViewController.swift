@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ViewController: UIViewController, UICollectionViewDataSource {
+class ViewController: UIViewController, UICollectionViewDataSource, UISearchBarDelegate {
 
     struct APIResponse: Codable {
         let images_results: [Result]
@@ -17,8 +17,6 @@ class ViewController: UIViewController, UICollectionViewDataSource {
         let original: String
     }
     
-    let urlString = "https://serpapi.com/search.json?q=Nature&tbm=isch&ijn=0&api_key=3ba660749854382407b0fceb47b6062cfe242ddc597aeeb4f5aa597eec34b6ff"
-    
     private var collectionView: UICollectionView?
     
     var results: [Result] = []
@@ -27,6 +25,7 @@ class ViewController: UIViewController, UICollectionViewDataSource {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        searchBar.delegate = self
         view.addSubview(searchBar)
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .vertical
@@ -37,17 +36,29 @@ class ViewController: UIViewController, UICollectionViewDataSource {
         
         collectionView.register(ImageCollectionViewCell.self, forCellWithReuseIdentifier: ImageCollectionViewCell.identifier)
         collectionView.dataSource = self
-        self.collectionView = collectionView
         view.addSubview(collectionView)
-        fetchPhotos()
+        collectionView.backgroundColor = .systemBackground
+        self.collectionView = collectionView
     }
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        collectionView?.frame = view.bounds
+        searchBar.frame = CGRect(x: 10, y: view.safeAreaInsets.top, width: view.frame.size.width - 20, height: 50)
+        collectionView?.frame = CGRect(x: 0, y: view.safeAreaInsets.top + 55, width: view.frame.size.width, height: view.frame.size.height - 55)
     }
     
-    func fetchPhotos() {
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.resignFirstResponder()
+        if let text = searchBar.text {
+            results = []
+            collectionView?.reloadData()
+            fetchPhotos(query: text)
+        }
+    }
+    
+    func fetchPhotos(query: String) {
+        let urlString = "https://serpapi.com/search.json?q=\(query)&tbm=isch&ijn=0&api_key=3ba660749854382407b0fceb47b6062cfe242ddc597aeeb4f5aa597eec34b6ff"
+        
         guard let url = URL(string: urlString) else {
             return
         }
