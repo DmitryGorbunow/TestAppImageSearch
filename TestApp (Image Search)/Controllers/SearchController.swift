@@ -1,32 +1,35 @@
 //
-//  ViewController.swift
+//  SearchController.swift
 //  TestApp (Image Search)
 //
-//  Created by Dmitry Gorbunow on 11/21/22.
+//  Created by Dmitry Gorbunow on 11/24/22.
 //
 
 import UIKit
 
-class ViewController: UIViewController, UICollectionViewDataSource, UISearchBarDelegate {
-
+class SearchController: UIViewController, UISearchBarDelegate, UICollectionViewDataSource {
+    
     struct APIResponse: Codable {
         let images_results: [Result]
     }
     
     struct Result: Codable {
         let original: String
+        let thumbnail: String
     }
     
     private var collectionView: UICollectionView?
     
     var results: [Result] = []
     
-    let searchBar = UISearchBar()
-
+    let searchFieldController = UISearchController(searchResultsController: nil)
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        searchBar.delegate = self
-        view.addSubview(searchBar)
+        title = "Image Search"
+        navigationItem.searchController = searchFieldController
+        searchFieldController.searchBar.delegate = self
+        
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .vertical
         layout.minimumLineSpacing = 0
@@ -43,8 +46,7 @@ class ViewController: UIViewController, UICollectionViewDataSource, UISearchBarD
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        searchBar.frame = CGRect(x: 10, y: view.safeAreaInsets.top, width: view.frame.size.width - 20, height: 50)
-        collectionView?.frame = CGRect(x: 0, y: view.safeAreaInsets.top + 55, width: view.frame.size.width, height: view.frame.size.height - 55)
+        collectionView?.frame = CGRect(x: 0, y: view.safeAreaInsets.top, width: view.frame.size.width, height: view.frame.size.height)
     }
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
@@ -97,4 +99,3 @@ class ViewController: UIViewController, UICollectionViewDataSource, UISearchBarD
     }
 
 }
-
