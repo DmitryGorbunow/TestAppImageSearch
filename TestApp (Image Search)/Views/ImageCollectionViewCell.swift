@@ -6,17 +6,19 @@
 //
 
 import UIKit
+import SDWebImage
 
 class ImageCollectionViewCell: UICollectionViewCell {
-    static let identifier = "FullScreenCell"
     
-         fileprivate let imageView: UIImageView = {
-            let imageView = UIImageView()
-            imageView.translatesAutoresizingMaskIntoConstraints = false
-            imageView.contentMode = .scaleAspectFill
-            imageView.clipsToBounds = true
-            return imageView
-        }()
+    static let identifier = "FullScreenCell"
+
+    lazy var imageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.contentMode = .scaleAspectFill
+        imageView.clipsToBounds = true
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        return imageView
+    }()
     
     override init(frame: CGRect) {
         super .init(frame: frame)
@@ -32,44 +34,16 @@ class ImageCollectionViewCell: UICollectionViewCell {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
-//    private let imageView: UIImageView = {
-//        let imageView = UIImageView()
-//        imageView.clipsToBounds = true
-//        imageView.contentMode = .scaleAspectFill
-//        return imageView
-//    }()
-//
-//    override init(frame: CGRect) {
-//        super.init(frame: frame)
-//        contentView.addSubview(imageView)
-//    }
-//
-//    required init?(coder: NSCoder) {
-//        fatalError()
-//    }
-//    override func layoutSubviews() {
-//        super.layoutSubviews()
-//        imageView.frame = contentView.bounds
-//    }
-//
-//    override func prepareForReuse() {
-//        super.prepareForReuse()
-//        imageView.image = nil
-//    }
-//
+
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        imageView.image = nil
+    }
+
     func configure(with urlString: String) {
         guard let url = URL(string: urlString) else {
             return
         }
-        URLSession.shared.dataTask(with: url) { [weak self] data, _, error in
-            guard let data = data, error == nil else {
-                return
-            }
-            DispatchQueue.main.async {
-                let image = UIImage(data: data)
-                self?.imageView.image = image
-            }
-        }.resume()
+        self.imageView.sd_setImage(with: url, placeholderImage: UIImage(named: ""))
     }
 }

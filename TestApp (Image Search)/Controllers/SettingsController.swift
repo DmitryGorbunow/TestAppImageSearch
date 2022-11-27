@@ -13,9 +13,9 @@ protocol SettingControllerDelegate {
 
 class SettingsController: UIViewController {
     
-    var size: String = ""
-    var country: String = ""
-    var language: String = ""
+    var size: String = "isch"
+    var country: String = "us"
+    var language: String = "en"
     
     var delegate: SettingControllerDelegate?
         

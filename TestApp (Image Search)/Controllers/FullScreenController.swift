@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SDWebImage
 
 class FullScreenController: UIViewController, UIScrollViewDelegate {
     
@@ -104,15 +105,7 @@ class FullScreenController: UIViewController, UIScrollViewDelegate {
         guard let url = URL(string: urlString) else {
             return
         }
-        URLSession.shared.dataTask(with: url) { [weak self] data, _, error in
-            guard let data = data, error == nil else {
-                return
-            }
-            DispatchQueue.main.async {
-                let image = UIImage(data: data)
-                self?.img.image = image
-            }
-        }.resume()
+        img.sd_setImage(with: url, placeholderImage: UIImage(named: ""))
     }
     
     @objc func closeBtnTapped() {

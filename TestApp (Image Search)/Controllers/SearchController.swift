@@ -122,7 +122,7 @@ class SearchController: UIViewController, UISearchBarDelegate, UICollectionViewD
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let imageURlString = results[indexPath.row].thumbnail
+        let imageURlString = results[indexPath.row].original
         
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ImageCollectionViewCell.identifier, for: indexPath) as? ImageCollectionViewCell else {
             return UICollectionViewCell()
