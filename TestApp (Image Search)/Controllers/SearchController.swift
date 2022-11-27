@@ -31,10 +31,11 @@ class SearchController: UIViewController, UISearchBarDelegate, UICollectionViewD
     }()
     
     var results: [Result] = []
-    
     var size: String = "isch"
     var country: String = "us"
     var language: String = "en"
+    var page = 0
+    var query = ""
     
     let searchFieldController = UISearchController(searchResultsController: nil)
     
@@ -82,6 +83,8 @@ class SearchController: UIViewController, UISearchBarDelegate, UICollectionViewD
         if let text = searchBar.text {
             results = []
             collectionView.reloadData()
+            self.page = 0
+            self.query = text
             fetchPhotos(query: text, size: self.size, country: self.country, language: self.language)
         }
     }
@@ -91,7 +94,7 @@ class SearchController: UIViewController, UISearchBarDelegate, UICollectionViewD
         let countryString = "&gl=\(country)"
         let languageString = "&hl=\(language)"
         
-        let urlString = "https://serpapi.com/search.json?q=\(query)\(countryString)\(languageString)&tbm=\(size)&ijn=0&api_key=f43e807bce8230928e2237077a9c2b1120f86dd0b283e2eba5ff1881c0339f2a"
+        let urlString = "https://serpapi.com/search.json?q=\(query)\(countryString)\(languageString)&tbm=\(size)&ijn=\(self.page)&api_key=f43e807bce8230928e2237077a9c2b1120f86dd0b283e2eba5ff1881c0339f2a"
         
         guard let url = URL(string: urlString) else {
             return
@@ -104,8 +107,7 @@ class SearchController: UIViewController, UISearchBarDelegate, UICollectionViewD
             do {
                 let jsonResults = try JSONDecoder().decode(APIResponse.self, from: data)
                 DispatchQueue.main.async {
-                    self?.results = jsonResults.images_results
-                    
+                    self?.results += jsonResults.images_results
                     self?.collectionView.reloadData()
                 }
             }
@@ -142,5 +144,12 @@ class SearchController: UIViewController, UISearchBarDelegate, UICollectionViewD
         vc.selectedIndex = indexPath.row
         vc.results = results
         pushView(viewController: vc)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        if indexPath.row == results.count - 1 {
+            self.page += 1
+            fetchPhotos(query: self.query, size: self.size, country: self.country, language: self.language)
+        }
     }
 }
