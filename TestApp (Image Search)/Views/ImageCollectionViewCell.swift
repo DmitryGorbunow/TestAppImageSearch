@@ -8,33 +8,56 @@
 import UIKit
 
 class ImageCollectionViewCell: UICollectionViewCell {
-    static let identifier = "ImageCollectionViewCell"
+    static let identifier = "FullScreenCell"
     
-    private let imageView: UIImageView = {
-        let imageView = UIImageView()
-        imageView.clipsToBounds = true
-        imageView.contentMode = .scaleAspectFill
-        return imageView
-    }()
+         fileprivate let imageView: UIImageView = {
+            let imageView = UIImageView()
+            imageView.translatesAutoresizingMaskIntoConstraints = false
+            imageView.contentMode = .scaleAspectFill
+            imageView.clipsToBounds = true
+            return imageView
+        }()
     
     override init(frame: CGRect) {
-        super.init(frame: frame)
+        super .init(frame: frame)
+        
         contentView.addSubview(imageView)
+        
+        imageView.topAnchor.constraint(equalTo: contentView.topAnchor).isActive = true
+        imageView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor).isActive = true
+        imageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor).isActive = true
+        imageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor).isActive = true
     }
     
     required init?(coder: NSCoder) {
-        fatalError()
-    }
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        imageView.frame = contentView.bounds
+        fatalError("init(coder:) has not been implemented")
     }
     
-    override func prepareForReuse() {
-        super.prepareForReuse()
-        imageView.image = nil
-    }
-    
+//    private let imageView: UIImageView = {
+//        let imageView = UIImageView()
+//        imageView.clipsToBounds = true
+//        imageView.contentMode = .scaleAspectFill
+//        return imageView
+//    }()
+//
+//    override init(frame: CGRect) {
+//        super.init(frame: frame)
+//        contentView.addSubview(imageView)
+//    }
+//
+//    required init?(coder: NSCoder) {
+//        fatalError()
+//    }
+//    override func layoutSubviews() {
+//        super.layoutSubviews()
+//        imageView.frame = contentView.bounds
+//    }
+//
+//    override func prepareForReuse() {
+//        super.prepareForReuse()
+//        imageView.image = nil
+//    }
+//
     func configure(with urlString: String) {
         guard let url = URL(string: urlString) else {
             return

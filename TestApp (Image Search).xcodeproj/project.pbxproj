@@ -16,6 +16,8 @@
 		D07F43C7292B6FE3004FE661 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D07F43C6292B6FE3004FE661 /* Assets.xcassets */; };
 		D07F43CA292B6FE3004FE661 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D07F43C8292B6FE3004FE661 /* LaunchScreen.storyboard */; };
 		D07F43D2292B811D004FE661 /* ImageCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D07F43D1292B811D004FE661 /* ImageCollectionViewCell.swift */; };
+		D0AC09C6293121A60063923C /* FullScreenController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0AC09C5293121A60063923C /* FullScreenController.swift */; };
+		D0AC09C829322A910063923C /* WebController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0AC09C729322A910063923C /* WebController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,6 +32,8 @@
 		D07F43C9292B6FE3004FE661 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		D07F43CB292B6FE3004FE661 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D07F43D1292B811D004FE661 /* ImageCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCollectionViewCell.swift; sourceTree = "<group>"; };
+		D0AC09C5293121A60063923C /* FullScreenController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FullScreenController.swift; sourceTree = "<group>"; };
+		D0AC09C729322A910063923C /* WebController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -50,6 +54,8 @@
 				D06C8CB2292EB7C40040438D /* SettingsController.swift */,
 				D003DFBF292E9DB600A77272 /* TabBarController.swift */,
 				D06C8CB4292EBA810040438D /* NavBarController.swift */,
+				D0AC09C5293121A60063923C /* FullScreenController.swift */,
+				D0AC09C729322A910063923C /* WebController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -182,9 +188,11 @@
 				D07F43BE292B6FE2004FE661 /* AppDelegate.swift in Sources */,
 				D06C8CB3292EB7C40040438D /* SettingsController.swift in Sources */,
 				D07F43D2292B811D004FE661 /* ImageCollectionViewCell.swift in Sources */,
+				D0AC09C6293121A60063923C /* FullScreenController.swift in Sources */,
 				D003DFC0292E9DB600A77272 /* TabBarController.swift in Sources */,
 				D07F43C0292B6FE2004FE661 /* SceneDelegate.swift in Sources */,
 				D06C8CB5292EBA810040438D /* NavBarController.swift in Sources */,
+				D0AC09C829322A910063923C /* WebController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
